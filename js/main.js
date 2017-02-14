@@ -95,7 +95,7 @@ $("#seeMore").click(function() {
 
     console.log(genres.length);
 
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 1; i++) {
         let randomNumber = Math.floor(Math.random() * (genres.length - 0)) + 0;
         let newGenre = new Genre();
         newGenre.getById(genres[randomNumber].id);
@@ -107,4 +107,11 @@ $("#seeMore").click(function() {
     if (genres.length < 2) {
         $("#seeMore").css("display", "none");
     }
+});
+
+$("#playClick").click(function() {
+    let trailerDiv = document.createElement("div");
+    trailerDiv.className += "reveal-modal large";
+    trailerDiv.id = "videoModal";
+    document.body.appendChild(trailerDiv);
 });

@@ -5,16 +5,19 @@ body {
 }
 
 .btn {
-    margin: 7% auto;
-    padding: 10px 40px;
+    margin: 4% auto;
     display: flex;
     align-items: center;
-    width: 8%;
+    width: 12%;
     justify-content: center;
-    height: 40px;
+    height: 60px;
     background-color: #F2994A;
     cursor: pointer;
     color: #fff;
+    border-radius: 10px;
+    font-family: "Roboto";
+    font-weight: 500;
+    font-size: 1.3em;
 }
 
 .navigation {
@@ -51,25 +54,32 @@ body {
     opacity: 1.00;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
-
+    font-family: "Oswald";
+    color: #FFFFFF;
 }
 
 .banner h2 {
-    font-size: 4em;
-    color: #fff;
+    font-size: 4.9em;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+    color: #FFFFFF;
+    font-family: "Oswald";
 }
 
 .banner h3 {
-    font-size: 2em;
-    color: #fff;
+    font-weight: 300;
+    font-size: 2.9em;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+    font-family: "Oswald";
+
 }
 
 .banner .playButton {
     display: none;
 }
 
-.banner svg:hover #Polygon {
+.banner #playClick:hover {
     cursor: pointer;
+    fill: #000;
 }
 
 .banner .bannerPolygon {
@@ -96,13 +106,24 @@ section {
     margin-top: 5%;
 }
 
+section .genreHeading {
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 100%;
+    color: #4F4F4F;
+    opacity: 1.00;
+    margin-bottom: 3%;
+}
+
 
 .slick-slide {
     width: 250px;;
     margin-right: 70px;
     position: relative;
     box-shadow: 0px 0px 20px #000;
-    transition: .2s;
+    transition: .4s;
     cursor: pointer;
     margin-bottom: 40px;
 }
@@ -123,10 +144,36 @@ section {
     background-color: rgba(255,255,255,0.7);
     height: 100%;
     width: 5%;
+    z-index: 999;
+}
+
+.slick-next {
     right: 0px;
 }
+
+.slick-prev {
+    left: 0px;
+}
+
 .slick-arrow:hover {
     background-color: rgba(255,255,255,0.7);
+}
+
+.slick-slide .vote-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #E7833B;
+    color: #fff;
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8em;
+    z-index: 999;
+    box-shadow: 0px 0px 6px #000;
 }
 
 .infoBox {
@@ -140,6 +187,22 @@ section {
 }
 
 .infoBox h3 {
+    text-align: left;
+    margin-left: 10%;
+    font-size: 1.8em;
+    width: 80%;
+    margin-top: 4%;
+    font-family: "Oswald";
+    line-height: 100%;
+    color: #4F4F4F;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+
+}
+
+.infoBox p {
+    font-family: "Roboto Condensed";
+    font-size: 14px;
+    color: #3D6390;
     text-align: left;
     margin-left: 10%;
 }
@@ -176,6 +239,21 @@ section {
     margin-top: 5%;
 }
 
+.movieDiv .basicInfo h1 {
+    font-family: "Oswald";
+    font-size: 4.2em;
+    line-height: 95%;
+    color: #4F4F4F;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
+
+}
+
+.movieDiv .basicInfo h3 {
+    font-family: "Roboto Condensed";
+    font-size: 2.4em;
+    color: #3D6390;
+}
+
 .movieDiv .basicInfo ul{
     margin-left: 0px;
 }
@@ -186,6 +264,10 @@ section {
 
 .movieDiv .movieDetails {
     margin-top: 5%;
+}
+
+.movieDiv .movieStoryline {
+    width: 40%;
 }
 
 /*.movieDiv .movieDetails ul li {

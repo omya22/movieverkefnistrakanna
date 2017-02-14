@@ -75,7 +75,7 @@
     "place_of_birth",
     "plot_keywords",
     "production_code",
-    "production_companies",
+    "production_companies",å
     "production_countries",
     "releases",
     "revenue",

@@ -4,6 +4,10 @@ function getGenreName(id) {
     return genres.filter(function(item) { return item.id == id; })[0].name
 }
 
+function getDirectorName(item) {
+    return moviecrew.filter(function(item) { return item.id == id; })[0].job;
+}
+
 class MovieDB {
     constructor(api_key, base_uri) {
         this.api_key = "3c2e3323fb6685239c36ee9312c7bcb0",
@@ -18,6 +22,7 @@ class Genre extends MovieDB {
     }
     getById(id) {
         let v = new XMLHttpRequest();
+        console.log(this.base_uri + "genre/" +id+ "/movies?api_key=" +this.api_key);
         v.open("GET", this.base_uri + "genre/" +id+ "/movies?api_key=" +this.api_key, true);
         v.onload = function (e) {
           if (v.readyState != 4 || v.status != 200) return;
@@ -27,6 +32,7 @@ class Genre extends MovieDB {
              document.body.appendChild(PopularSection);
 
              let heading = document.createElement("h1");
+             heading.className += "genreHeading";
              heading.innerHTML = getGenreName(id);
              PopularSection.appendChild(heading);
 
@@ -49,6 +55,12 @@ class Genre extends MovieDB {
               imgDiv.appendChild(img);
               ActionDiv.appendChild(imgDiv);
 
+              let img_voteAverage = document.createElement("div");
+              img_voteAverage.className += "vote-circle";
+              let img_movieVoteSpan = document.createElement("span");
+              img_voteAverage.appendChild(img_movieVoteSpan);
+              img_movieVoteSpan.innerHTML = +response.results[i].vote_average;
+              imgDiv.appendChild(img_voteAverage);
 
               let infoBox = document.createElement("div");
               infoBox.className += "infoBox";
@@ -86,13 +98,13 @@ class Genre extends MovieDB {
               }
           );
 
+
+
           $(".slideImg").click(function() {
               getMovie($(this).attr("id"));
           })
-
-
         };
-        v.send("banana=yellow");
+        v.send();
       }
 };
 
@@ -138,15 +150,24 @@ function getMovie(movieid) {
             movieYear.innerHTML = 2016;
             basicInfo.appendChild(movieYear);
 
-            let movieCrew = document.createElement("ul");
-            let movieDirector = document.createElement("li");
-            movieDirector.innerHTML = "Director: Edward Steward";
-            let movieWriters = document.createElement("li");
-            movieWriters.innerHTML = "Writers: Edward Steward & John Newman";
-            movieCrew.appendChild(movieDirector);
-            movieCrew.appendChild(movieWriters);
-            basicInfo.appendChild(movieCrew);
-            movieDiv.appendChild(basicInfo);
+            var c = new XMLHttpRequest();
+            c.open("GET", "http://api.themoviedb.org/3/" + "movie/" +movieid+ "/credits?api_key=3c2e3323fb6685239c36ee9312c7bcb0", true);
+            c.onreadystatechange = function () {
+              if (r.readyState != 4 || r.status != 200) return;
+              let moviecrew = JSON.parse(c.responseText);
+
+              let movieCrew = document.createElement("ul");
+              let movieDirector = document.createElement("li");
+              movieDirector.innerHTML = "Director: " +moviecrew.id;
+                  let movieWriters = document.createElement("li");
+                  movieWriters.innerHTML = "Writers: " +moviecrew.id;
+                  movieCrew.appendChild(movieDirector);
+                  movieCrew.appendChild(movieWriters);
+                  basicInfo.appendChild(movieCrew);
+                  movieDiv.appendChild(basicInfo);
+
+
+
 
             let movieDetails = document.createElement("div");
             movieDetails.className += "movieDetails";
@@ -182,11 +203,24 @@ function getMovie(movieid) {
             movieDetails.appendChild(row);
             movieDiv.appendChild(movieDetails);
 
+            let rowDivStoryline = document.createElement("div");
+            rowDivStoryline.className += "movieStoryline medium-9 small-6 medium-7 medium-offset-5 small-6 small-offset-6"
+            let movieStorylineh2 = document.createElement("h2");
+            movieStorylineh2.innerHTML = "Plot"
+            rowDivStoryline.appendChild(movieStorylineh2);
+            let movieStoryline = document.createElement("p");
+            movieStoryline.innerHTML = response.overview;
+            rowDivStoryline.appendChild(movieStoryline);
+            movieDiv.appendChild(rowDivStoryline);
+
+        };
+        c.send();
 
         };
         r.send();
 };
 
 $(".logo").click(function() {
+    $(".movieDiv").empty();
     window.location = "index.html";
 });
