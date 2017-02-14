@@ -48,7 +48,10 @@ class Genre extends MovieDB {
               let img = document.createElement("img");
               img.id = response.results[i].id;
               img.className += "slideImg";
-              img.src = "http://image.tmdb.org/t/p/original" + response.results[i].poster_path;
+              img.src = "http://image.tmdb.org/t/p/original/" + response.results[i].poster_path;
+              if (img.src == "http://image.tmdb.org/t/p/original/null") {
+                  img.src = "img/no_image.png";
+              }
             //   if (response.results[i].poster_path = "") {
             //       imgDiv.style.display = "none";
             //   }
@@ -100,8 +103,9 @@ class Genre extends MovieDB {
 
 
 
-          $(".slideImg").click(function() {
+          $(".slideImg").on("click", function(e) {
               getMovie($(this).attr("id"));
+              this.off(e);
           })
         };
         v.send();
@@ -128,6 +132,7 @@ function getMovie(movieid) {
             let movieDiv = document.createElement("div");
             movieDiv.className += "movieDiv";
             let moviePoster = document.createElement("img");
+            moviePoster.className += "moviePoster";
             moviePoster.src = "http://image.tmdb.org/t/p/original" +response.poster_path;
             movieDiv.appendChild(moviePoster);
 
@@ -149,18 +154,20 @@ function getMovie(movieid) {
             let movieYear = document.createElement("h3");
             movieYear.innerHTML = 2016;
             basicInfo.appendChild(movieYear);
+            console.log("hello");
 
             var c = new XMLHttpRequest();
+            console.log("http://api.themoviedb.org/3/" + "movie/" +movieid+ "/credits?api_key=3c2e3323fb6685239c36ee9312c7bcb0");
             c.open("GET", "http://api.themoviedb.org/3/" + "movie/" +movieid+ "/credits?api_key=3c2e3323fb6685239c36ee9312c7bcb0", true);
             c.onreadystatechange = function () {
-              if (r.readyState != 4 || r.status != 200) return;
+              if (c.readyState != 4 || c.status != 200) return;
               let moviecrew = JSON.parse(c.responseText);
 
               let movieCrew = document.createElement("ul");
               let movieDirector = document.createElement("li");
-              movieDirector.innerHTML = "Director: " +moviecrew.id;
+              movieDirector.innerHTML = "Director: " +moviecrew.crew.filter(function(item) { return item.job == "Director"; })[0].name;;
                   let movieWriters = document.createElement("li");
-                  movieWriters.innerHTML = "Writers: " +moviecrew.id;
+                  movieWriters.innerHTML = "Writers: " +moviecrew.crew.filter(function(item) { return item.department == "Writing"; })[0].name;
                   movieCrew.appendChild(movieDirector);
                   movieCrew.appendChild(movieWriters);
                   basicInfo.appendChild(movieCrew);
@@ -203,6 +210,7 @@ function getMovie(movieid) {
             movieDetails.appendChild(row);
             movieDiv.appendChild(movieDetails);
 
+
             let rowDivStoryline = document.createElement("div");
             rowDivStoryline.className += "movieStoryline medium-9 small-6 medium-7 medium-offset-5 small-6 small-offset-6"
             let movieStorylineh2 = document.createElement("h2");
@@ -212,6 +220,82 @@ function getMovie(movieid) {
             movieStoryline.innerHTML = response.overview;
             rowDivStoryline.appendChild(movieStoryline);
             movieDiv.appendChild(rowDivStoryline);
+
+            let castSection = document.createElement("section");
+            let castDiv = document.createElement("div");
+            castDiv.className += "responsive";
+            movieDiv.appendChild(castDiv);
+            let castHeading = document.createElement("h2");
+            castHeading.innerHTML = "Cast";
+            castSection.appendChild(castHeading)
+            castSection.appendChild(castDiv);
+            movieDiv.appendChild(castSection);
+
+            for (var i = 0; i < moviecrew.cast.length; i++) {
+                let castImgDiv = document.createElement("div");
+                let castImg = document.createElement("img");
+                castImg.id = moviecrew.cast[i].id;
+                castImg.className += "castImg";
+                castImg.src = "http://image.tmdb.org/t/p/original/" + moviecrew.cast[i].profile_path;
+                if (castImg.src == "http://image.tmdb.org/t/p/original/null") {
+                    castImg.src = "img/no_image.png";
+                }
+                let castName = document.createElement("h3");
+                castName.innerHTML = moviecrew.cast[i].name;
+                castImgDiv.appendChild(castImg);
+                castImgDiv.appendChild(castName);
+                castDiv.appendChild(castImgDiv);
+            }
+
+            var similar = new XMLHttpRequest();
+            similar.open("GET", "http://api.themoviedb.org/3/" + "movie/" +movieid+ "/similar?api_key=3c2e3323fb6685239c36ee9312c7bcb0", true);
+            similar.onreadystatechange = function () {
+              if (similar.readyState != 4 || similar.status != 200) return;
+              let similarMovies = JSON.parse(similar.responseText);
+
+              let similarMovieSection = document.createElement("section");
+              let similarMoviesHeading = document.createElement("h3");
+              similarMoviesHeading.innerHTML = "You might also like:"
+              similarMovieSection.appendChild(similarMoviesHeading);
+              let similarMovieDiv = document.createElement("div");
+              similarMovieDiv.className += "responsive";
+              similarMovieSection.appendChild(similarMovieDiv);
+              movieDiv.appendChild(similarMovieSection);
+              for (var i = 0; i < similarMovies.results.length; i++) {
+                  console.log(similarMovies.results[i].poster_path)
+                  let similarMovieImgDiv = document.createElement("div");
+                  let similarMovieImg = document.createElement("img");
+                  similarMovieImg.className += "similarImg";
+                  similarMovieImg.src = "http://image.tmdb.org/t/p/original/" + similarMovies.results[i].poster_path;
+                  similarMovieImgDiv.appendChild(similarMovieImg);
+                //   if (c.src == "http://image.tmdb.org/t/p/original/null") {
+                //       castImg.src = "img/no_image.png";
+                //   }
+                //   let castName = document.createElement("h3");
+                //   castName.innerHTML = moviecrew.cast[i].name;
+                //   similarMovieImgDiv.appendChild(similarMovieImg);
+                //   castImgDiv.appendChild(castName);
+                  similarMovieDiv.appendChild(similarMovieImgDiv);
+              }
+
+              $(similarMovieDiv).slick({
+                  infinite: false,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  variableWidth: true
+              });
+            };
+
+            similar.send();
+
+            $(castDiv).slick({
+                infinite: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                variableWidth: true
+            });
+
+
 
         };
         c.send();

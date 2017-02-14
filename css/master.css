@@ -211,7 +211,7 @@ section .genreHeading {
     font-size: 1.7em;
 }
 
-.movieDiv img {
+.movieDiv .moviePoster {
     width: 300px;
     position: absolute;
     bottom: -30%;
@@ -262,22 +262,43 @@ section .genreHeading {
     list-style: none;
 }
 
-.movieDiv .movieDetails {
+.movieDiv .movieDetails div ul{
     margin-top: 5%;
+    margin-left: 0px;
 }
 
 .movieDiv .movieStoryline {
     width: 40%;
 }
 
-/*.movieDiv .movieDetails ul li {
+.movieDiv .movieStoryline p {
+    font-family: "Roboto Condensed";
+    font-size: 1.4em;
+    line-height: 113%;
+    color: #4F4F4F;
+    font-weight: 300;
+
+}
+
+.movieDiv .movieDetails ul li {
     float: left;
     padding-right: 1%;
-}*/
-
-.bold {
-    font-weight: 700;
 }
+
+.movieDiv .movieStoryline h2 {
+    font-family: "Oswald";
+    font-size: 2.5em;
+    color: #4F4F4F;
+}
+
+.movieDiv .slick-slider {
+    margin-top: 5%;
+}
+
+.movieDiv .slick-slider .slick-track .slick-slide {
+    box-shadow: 0px;
+}
+
 
 @media (max-width: 600px) {
 

@@ -1,3 +1,8 @@
+$(document).ready( function() {
+    $(document).foundation();
+
+});
+
 let genres = [
     {
         "id": 28,
@@ -95,7 +100,7 @@ $("#seeMore").click(function() {
 
     console.log(genres.length);
 
-    for (var i = 0; i < 1; i++) {
+    for (var i = 0; i < 3; i++) {
         let randomNumber = Math.floor(Math.random() * (genres.length - 0)) + 0;
         let newGenre = new Genre();
         newGenre.getById(genres[randomNumber].id);
