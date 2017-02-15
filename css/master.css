@@ -2,6 +2,7 @@ body {
     width: 100%;
     font-family: sans-serif;
     background-color: #FEFEFE;
+    overflow: hidden;
 }
 
 .btn {
@@ -25,6 +26,8 @@ body {
     height: 100px;
     position: absolute;
     z-index: 999;
+    display: none;
+    transition: .3s;
 }
 
 .logo {
@@ -41,6 +44,7 @@ body {
     margin: 2%;
     fill: #fff;
     z-index: 999;
+    transition: .8s;
 }
 
 .banner {
@@ -48,7 +52,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 60vh;
+    height: 100vh;
     width: 100%;
     background: linear-gradient(180deg, #FAA20E 56.67%, #E7833B 84.44%);
     opacity: 1.00;
@@ -56,6 +60,7 @@ body {
     position: relative;
     font-family: "Oswald";
     color: #FFFFFF;
+    transition: .3s;
 }
 
 .banner h2 {
@@ -70,7 +75,6 @@ body {
     font-size: 2.9em;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
     font-family: "Oswald";
-
 }
 
 .banner .playButton {
@@ -88,7 +92,7 @@ body {
     clip-path: polygon(100% 76%, 0 100%, 100% 100%);
     width: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: -1%;
     height: 80%;
     display: none;
 }
@@ -99,6 +103,46 @@ header:after {
     position: absolute;
     top: 0;
     background-color: #000;
+}
+
+.vote-circle span {
+    font-family: "Roboto";
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background: linear-gradient(180deg, #FAA20E 56.67%, #E7833B 84.44%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    left: -100%;
+    transition: .005s;
+}
+
+.loadingIcon {
+    margin: 4% auto;
+    display: block;
+    width: 10%;
+}
+
+.searchCircle {
+    position: fixed;
+    top: -15%;
+    right: -800%;
+    width: 300px;
+    background: linear-gradient(180deg, #FAA20E 56.67%, #E7833B 84.44%);
+    z-index: 998;
+    height: 300px;
+    border-radius: 100%;
+    transition: .3s;
 }
 
 section {
@@ -117,8 +161,7 @@ section .genreHeading {
     margin-bottom: 3%;
 }
 
-
-.slick-slide {
+#main-content .slick-slide, .similarMoves .slick-slide {
     width: 250px;;
     margin-right: 70px;
     position: relative;
@@ -128,41 +171,49 @@ section .genreHeading {
     margin-bottom: 40px;
 }
 
-
-.slick-slide:hover {
+#main-content .slick-slide:hover {
     box-shadow: 0px 0px 25px #000;
-    transition: .2s;
+    transition: .4s;
     width: 270px;
 }
 
-.slick-slide img {
+#main-content .slick-slide img {
     width: 100%;
 }
 
+#main-content .slick-slider button {
+    display: none;
+}
+
 .slick-arrow {
-    display: block;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.0);
     height: 100%;
     width: 5%;
-    z-index: 999;
+    z-index: 997;
 }
 
 .slick-next {
     right: 0px;
+    display: block;
 }
 
 .slick-prev {
     left: 0px;
+    display: none;
 }
 
 .slick-arrow:hover {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.slick-prev:before, .slick-next:before {
+    font-size: 40px;
 }
 
 .slick-slide .vote-circle {
     width: 40px;
     height: 40px;
-    background-color: #E7833B;
+    background: linear-gradient(180deg, #FAA20E 56.67%, #E7833B 84.44%);
     color: #fff;
     position: absolute;
     top: 4%;
@@ -181,7 +232,7 @@ section .genreHeading {
     bottom: 0;
     height: 30%;
     display: none;
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
     width: 100%;
     transition: .3s;
 }
@@ -196,7 +247,6 @@ section .genreHeading {
     line-height: 100%;
     color: #4F4F4F;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
-
 }
 
 .infoBox p {
@@ -245,7 +295,6 @@ section .genreHeading {
     line-height: 95%;
     color: #4F4F4F;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
-
 }
 
 .movieDiv .basicInfo h3 {
@@ -254,15 +303,22 @@ section .genreHeading {
     color: #3D6390;
 }
 
-.movieDiv .basicInfo ul{
+.movieDiv .basicInfo ul {
     margin-left: 0px;
 }
 
 .movieDiv .basicInfo ul li, .movieDiv .movieDetails ul li {
     list-style: none;
+    font-family: "Roboto Condensed";
+    font-size: 1.5em;
+    color: #4F4F4F;
+
 }
 
-.movieDiv .movieDetails div ul{
+.movieDiv .movieDetails {
+}
+
+.movieDiv .movieDetails div ul {
     margin-top: 5%;
     margin-left: 0px;
 }
@@ -277,7 +333,6 @@ section .genreHeading {
     line-height: 113%;
     color: #4F4F4F;
     font-weight: 300;
-
 }
 
 .movieDiv .movieDetails ul li {
@@ -292,16 +347,119 @@ section .genreHeading {
 }
 
 .movieDiv .slick-slider {
+    margin-top: .5%;
+}
+
+.movieDiv section h2, .movieDiv section h3 {
+    font-family: "Oswald", sans-serif;;
+    font-size: 2.6em;
+    color: #4F4F4F;
+    margin-bottom: 1%;
+
+}
+
+.movieDiv section .slick-slide {
+    margin-right: 5px;
+    width: 200px;
+    outline: none;
+}
+
+.movieDiv section .slick-slide img {
+    height: 300px;
+    width: 100%;
+}
+
+.movieDiv section .slick-slide h2 {
     margin-top: 5%;
+    font-size: 1em;
+    font-weight: 700;
 }
 
-.movieDiv .slick-slider .slick-track .slick-slide {
-    box-shadow: 0px;
+.movieDiv section .slick-slide h3 {
+    font-size: .8em;
 }
 
+.movieDiv section .slick-slide h2, .movieDiv section .slick-slide h3 {
+    font-family: "Roboto Condensed", sans-serif;
+    width: 95%;
+    margin-left: 6%;
+    text-align: center;
+    margin-bottom: -1px;
+}
+
+.similarImg {
+    cursor: pointer;
+}
+
+.reveal {
+    width: 80%;
+    height: 80%;
+    z-index: 1006;
+    padding: 0rem;
+    border: 0px;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    overflow-y: hidden;
+    outline: none;
+}
+
+.reveal-overlay {
+    background-color: rgba(10, 10, 10, 0.9);
+}
+
+.none {
+    display: none;
+}
+
+footer {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(180deg, #FAA20E 50%, #E7833B 85.88%);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer ul {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+footer ul li {
+    padding-right: 2%;
+    list-style: none;
+    color: #fff;
+    font-family: "Oswald";
+    font-weight: 300;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.movieDiv section:last-child .slick-slide{
+    width: 250px;;
+    margin-right: 20px;
+    position: relative;
+    box-shadow: 0px 0px 20px #000;
+    transition: .3s;
+    cursor: pointer;
+    margin-bottom: 100px;
+}
+
+.movieDiv section:last-child .slick-slide:hover {
+    width: 260px;
+    transition: .3s;
+}
+
+.movieDiv section:last-child .slick-slide img{
+    height: auto;
+}
 
 @media (max-width: 600px) {
-
     .infoBox {
         height: 30%;
         display: block;

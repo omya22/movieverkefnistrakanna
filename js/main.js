@@ -1,7 +1,32 @@
 $(document).ready( function() {
     $(document).foundation();
 
+    setTimeout(function() {
+        $(".banner").css("height", "60vh");
+        $(".navigation").css("display", "block");
+        $("body").css("overflow", "auto");
+    }, 1400);
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
+           $(".searchCircle").css("right", "-8%");
+           $(".search").css("position", "fixed");
+           $(".search").css("right", "0%");
+       } else if ($(this).scrollTop() < 300) {
+           $(".searchCircle").css("right", "-800%");
+           $(".searchCircle").css("transform", "(70deg)");
+           $(".search").css("position", "absolute");
+           $(".search").css("right", "0%");
+       }
+   });
+
+   $(".slick-next").click(function() {
+       $(".slick-prev").css("display", "block");
+   })
+
+
 });
+
 
 let genres = [
     {
@@ -98,25 +123,33 @@ war.getById(10752);
 
 $("#seeMore").click(function() {
 
-    console.log(genres.length);
+    let gifImg = document.createElement("img");
+    gifImg.src = "img/loading.gif";
+    gifImg.className += "loadingIcon";
+    movies.appendChild(gifImg);
+    $(this).css("display", "none");
 
-    for (var i = 0; i < 3; i++) {
-        let randomNumber = Math.floor(Math.random() * (genres.length - 0)) + 0;
-        let newGenre = new Genre();
-        newGenre.getById(genres[randomNumber].id);
-        genres.pop(genres[randomNumber]);
-    }
+    setTimeout(function() {
+        gifImg.style.display = "none";
+        for (var i = 0; i < 3; i++) {
+            let randomNumber = Math.floor(Math.random() * (genres.length - 0)) + 0;
+            let newGenre = new Genre();
+            newGenre.getById(genres[randomNumber].id);
+            genres.pop(genres[randomNumber]);
+        }
+        $("#seeMore").css("display", "flex");
 
-    console.log(genres)
+    }, 1000);
+
 
     if (genres.length < 2) {
         $("#seeMore").css("display", "none");
     }
 });
 
-$("#playClick").click(function() {
-    let trailerDiv = document.createElement("div");
-    trailerDiv.className += "reveal-modal large";
-    trailerDiv.id = "videoModal";
-    document.body.appendChild(trailerDiv);
+$(".slideImg").on("click", function(e) {
+    $("#main-content").remove();
+    getMovie($(this).attr("id"));
+    $(window).scrollTop = 0;
+    this.off(e);
 });
