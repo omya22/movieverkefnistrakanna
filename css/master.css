@@ -120,10 +120,10 @@ header:after {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     top: 0;
     overflow: hidden;
-    left: -100%;
+    display: none;
     transition: .005s;
 }
 
@@ -460,6 +460,22 @@ footer ul li {
 }
 
 @media (max-width: 600px) {
+
+    body {
+        font-size: 70%;
+    }
+
+    .movieDiv .moviePoster {
+    width: 200px;
+    bottom: 0%;
+    }
+
+    .movieDiv .vote-circle {
+    width: 70px;
+    height: 70px;
+    bottom: 18%;
+}
+
     .infoBox {
         height: 30%;
         display: block;

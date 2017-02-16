@@ -84,29 +84,26 @@ class Genre extends MovieDB {
               variableWidth: true
           });
 
-            $(".slideImg").hover(
-                function() {
-                    $(this).siblings(".infoBox").css("height", "30%");
-                    $(this).siblings(".infoBox").css("display", "block");
-           },   function() {
-                    $(this).siblings(".infoBox").css("height", "0%");
-                    $(this).siblings(".infoBox").css("display", "none");
-              }
-          );
+        //     $(".slideImg").hover(
+        //         function() {
+        //             $(this).siblings(".infoBox").css("height", "30%");
+        //             $(this).siblings(".infoBox").css("display", "block");
+        //    },   function() {
+        //             $(this).siblings(".infoBox").css("height", "0%");
+        //             $(this).siblings(".infoBox").css("display", "none");
+        //       }
+        //   );
 
-          $(".infoBox").hover(
-              function() {
-                  $(this).css("height", "30%");
-              }
-          );
+        //   $(".infoBox").hover(
+        //       function() {
+        //           $(this).css("height", "30%");
+        //       }
+        //   );
 
           $(".slideImg").on("click", function(e) {
 
-              setTimeout(function() {
-                  $(".loading").css("left", "800%")
-              }, 800);
-
-              $(".loading").css("left", "0%")
+              $('.loading').show().delay(800).fadeOut(400);
+              $(".loading").css("display", "flex");
               $("#main-content").remove()
               window.scrollTo(0, 0);
               getMovie($(this).attr("id"))
@@ -295,14 +292,13 @@ function getMovie(movieid) {
 
                     $(".similarImg").on("click", function() {
 
-                        setTimeout(function() {
-                            $(".loading").css("left", "800%")
-                        }, 800);
+                        $('.loading').show().delay(800).fadeOut(400);
+                        $(".loading").css("display", "flex");
 
-                        $(".loading").css("left", "0%")
                         $(".movieDiv").remove();
                         window.scrollTo(0, 0);
                         getMovie($(this).attr("id"));
+
                     });
 
                     $(similarMovieDiv).slick({
