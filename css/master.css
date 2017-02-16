@@ -4,7 +4,9 @@ body {
     background-color: #FEFEFE;
     overflow: hidden;
 }
-
+h2, h3 {
+    font-family: "Oswald";
+}
 .btn {
     margin: 4% auto;
     display: flex;
