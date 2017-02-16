@@ -10,13 +10,13 @@ $(document).ready( function() {
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
            $(".searchCircle").css("right", "-8%");
-           $(".search").css("position", "fixed");
-           $(".search").css("right", "0%");
+           $(".searchlogo").css("position", "fixed");
+           $(".searchlogo").css("right", "0%");
        } else if ($(this).scrollTop() < 300) {
            $(".searchCircle").css("right", "-800%");
            $(".searchCircle").css("transform", "(70deg)");
-           $(".search").css("position", "absolute");
-           $(".search").css("right", "0%");
+           $(".searchlogo").css("position", "absolute");
+           $(".searchlogo").css("right", "0%");
        }
    });
 

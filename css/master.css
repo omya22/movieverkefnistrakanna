@@ -38,13 +38,14 @@ body {
     z-index: 999;
 }
 
-.search {
+.searchlogo {
     width: 60px;
     float: right;
     margin: 2%;
     fill: #fff;
     z-index: 999;
     transition: .8s;
+    cursor: pointer;
 }
 
 .banner {
